@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="bg-zinc-900 rounded-lg shadow-xl p-6 border border-zinc-800">
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold text-theme-orange text-center">Unclaimed Property</h1>
+        <p class="text-center text-gray-400 mt-2">Available items for claiming</p>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="mb-8">
+        <form method="GET">
+            <div class="relative max-w-2xl mx-auto">
+                <input type="text" name="search" value="{{ search_query or '' }}"
+                    placeholder="Search unclaimed property (e.g., Dell Monitor, iPhone 14)..." class="w-full px-4 py-2 pr-10 bg-zinc-800 border border-zinc-700 rounded-md 
+                              focus:outline-none focus:ring-2 focus:ring-theme-orange focus:border-transparent
+                              text-gray-200 placeholder-gray-500">
+                <button type="submit"
+                    class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-theme-orange">
+                    🔍
+                </button>
+            </div>
+        </form>
+    </div>
+
+    {% if search_query %}
+    <div class="mb-4 text-gray-400 text-center">
+        {% if equipment|length == 0 %}
+        No results found for "{{ search_query }}"
+        {% else %}
+        Found {{ equipment|length }} result{% if equipment|length != 1 %}s{% endif %} for "{{ search_query }}"
+        {% endif %}
+        <a href="{{ url_for('routes.unclaimed_property') }}" class="text-theme-orange hover:text-orange-400 ml-2">
+            Clear search
+        </a>
+    </div>
+    {% endif %}
+
+    <!-- Equipment List -->
+    {% if equipment %}
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {% for item in equipment %}
+        <div class="bg-zinc-800 rounded-lg p-6 hover:shadow-xl transition-all duration-300 
+                        border border-zinc-700 hover:border-theme-orange">
+            <div class="flex justify-between items-start mb-4">
+                <div>
+                    <h3 class="text-lg font-semibold text-theme-orange">{{ item.name }}</h3>
+                    <p class="text-sm text-gray-400">{{ item.property_type }}</p>
+                </div>
+                <div class="flex flex-col gap-2">
+                    <form method="POST" action="{{ url_for('routes.claim_property', id=item.id) }}" class="inline"
+                        onsubmit="return confirm('Are you sure you want to claim this property?');">
+                        <button type="submit" class="text-theme-orange hover:text-orange-400 font-medium">
+                            Claim
+                        </button>
+                    </form>
+                    {% if current_user.username == 'tylerjackson' %}
+                    <form method="POST" action="{{ url_for('routes.delete_property', id=item.id) }}" class="inline"
+                        onsubmit="return confirm('Are you sure you want to delete this property?');">
+                        <button type="submit" class="text-red-500 hover:text-red-400 font-medium">
+                            Delete
+                        </button>
+                    </form>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="space-y-2 text-gray-300">
+                <p><span class="text-gray-400">Manufacturer:</span> {{ item.manufacturer }}</p>
+                <p><span class="text-gray-400">Year:</span> {{ item.year_manufactured }}</p>
+                <p><span class="text-gray-400">MSRP:</span> ${{ "%.2f"|format(item.msrp or 0) }}</p>
+                <p><span class="text-gray-400">Released:</span>
+                    {{ item.release_date.strftime('%Y-%m-%d') if item.release_date }}
+                </p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="text-center py-12">
+        {% if search_query %}
+        <p class="text-gray-400">No matching unclaimed property found.</p>
+        {% else %}
+        <p class="text-gray-400">No unclaimed property available.</p>
+        {% endif %}
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

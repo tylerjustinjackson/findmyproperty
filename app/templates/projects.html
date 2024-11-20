@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mx-auto p-4">
+    <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-bold text-gray-200">My Projects</h2>
+        <a href="{{ url_for('routes.add_project') }}"
+            class="bg-theme-orange hover:bg-opacity-80 text-white px-4 py-2 rounded transition-colors">
+            Add New Project
+        </a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for project in projects %}
+        <div class="bg-zinc-900 rounded-lg shadow-lg overflow-hidden">
+            <div class="p-6">
+                <h3 class="text-xl font-semibold text-gray-200 mb-2">{{ project.name }}</h3>
+                <p class="text-gray-400 mb-4">{{ project.description[:100] }}{% if project.description|length > 100
+                    %}...{% endif %}</p>
+
+                <div class="flex items-center mb-4">
+                    <span class="px-3 py-1 rounded-full text-sm 
+                        {% if project.current_status == 'Active' %}
+                            bg-green-500 bg-opacity-20 text-green-400
+                        {% elif project.current_status == 'Completed' %}
+                            bg-blue-500 bg-opacity-20 text-blue-400
+                        {% elif project.current_status == 'Scheduled' %}
+                            bg-yellow-500 bg-opacity-20 text-yellow-400
+                        {% else %}
+                            bg-red-500 bg-opacity-20 text-red-400
+                        {% endif %}">
+                        {{ project.current_status }}
+                    </span>
+                </div>
+
+                <div class="text-sm text-gray-400 mb-4">
+                    Start Date: {{ project.start_date.strftime('%Y-%m-%d') }}
+                </div>
+
+                <a href="{{ url_for('routes.project_detail', id=project.id) }}"
+                    class="inline-block bg-zinc-800 hover:bg-zinc-700 text-gray-200 px-4 py-2 rounded transition-colors">
+                    View Details
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

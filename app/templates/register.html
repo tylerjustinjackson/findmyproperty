@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="max-w-md mx-auto bg-zinc-900 rounded-lg shadow-xl p-8 border border-zinc-800">
+    <div class="text-center mb-8">
+        <h1 class="text-3xl font-bold text-theme-orange">FindMyProperty</h1>
+        <p class="text-gray-400 mt-2">Create your account</p>
+    </div>
+
+    <form method="POST" class="space-y-6">
+        <div>
+            <label class="block text-gray-300 text-sm font-medium mb-2">
+                Legal Name <span class="text-theme-orange">*</span>
+            </label>
+            <input type="text" name="legal_name" required class="w-full px-3 py-2 bg-zinc-800 border border-zinc-700 rounded-md 
+                          focus:outline-none focus:ring-2 focus:ring-theme-orange focus:border-transparent
+                          text-gray-200" placeholder="Enter your full legal name">
+            <p class="mt-1 text-sm text-gray-400">
+                This name will be used for official documentation
+            </p>
+        </div>
+        <div>
+            <label class="block text-gray-300 text-sm font-medium mb-2">
+                Username <span class="text-theme-orange">*</span>
+            </label>
+            <input type="text" name="username" required class="w-full px-3 py-2 bg-zinc-800 border border-zinc-700 rounded-md 
+                          focus:outline-none focus:ring-2 focus:ring-theme-orange focus:border-transparent
+                          text-gray-200" placeholder="Choose a username">
+            <p class="mt-1 text-sm text-gray-400">
+                Only letters, numbers, and underscores allowed. Spaces will be converted to underscores.
+            </p>
+        </div>
+        <div>
+            <label class="block text-gray-300 text-sm font-medium mb-2">
+                Password <span class="text-theme-orange">*</span>
+            </label>
+            <input type="password" name="password" required class="w-full px-3 py-2 bg-zinc-800 border border-zinc-700 rounded-md 
+                          focus:outline-none focus:ring-2 focus:ring-theme-orange focus:border-transparent
+                          text-gray-200" placeholder="Choose a secure password">
+        </div>
+        <button type="submit" class="w-full bg-theme-orange text-white py-2 px-4 rounded-md hover:bg-orange-700 
+                       transition-colors focus:outline-none focus:ring-2 focus:ring-theme-orange focus:ring-offset-2 
+                       focus:ring-offset-zinc-900">
+            Register
+        </button>
+    </form>
+</div>
+{% endblock %}

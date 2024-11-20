@@ -1,0 +1,12 @@
+equipment_tracker/
+    ├── app/
+    │   ├── __init__.py
+    │   ├── models.py
+    │   ├── routes.py
+    │   └── templates/
+    │       ├── base.html
+    │       ├── login.html
+    │       ├── register.html
+    │       └── equipment.html
+    ├── config.py
+    └── requirements.txt 

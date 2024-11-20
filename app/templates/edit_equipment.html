@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="bg-zinc-900 rounded-lg shadow-xl p-6 border border-zinc-800">
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold text-theme-orange text-center">Edit Property</h1>
+        <p class="text-center text-gray-400 mt-2">Update property details</p>
+    </div>
+
+    <form method="POST" class="max-w-2xl mx-auto space-y-6">
+        <!-- Property Name -->
+        <div>
+            <label class="block text-gray-300 text-sm font-medium mb-2">Property Name:</label>
+            <input type="text" name="name" value="{{ equipment.name }}" required class="w-full px-3 py-2 bg-zinc-800 border border-zinc-700 rounded-md 
+                          focus:outline-none focus:ring-2 focus:ring-theme-orange focus:border-transparent
+                          text-gray-200">
+        </div>
+
+        <!-- Property Type -->
+        <div>
+            <label class="block text-gray-300 text-sm font-medium mb-2">Property Type:</label>
+            <select name="property_type" required class="w-full px-3 py-2 bg-zinc-800 border border-zinc-700 rounded-md 
+                           focus:outline-none focus:ring-2 focus:ring-theme-orange focus:border-transparent
+                           text-gray-200">
+                <option value="">Select a type...</option>
+                {% for type in property_types %}
+                <option value="{{ type }}" {% if type==equipment.property_type %}selected{% endif %}>
+                    {{ type }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Manufacturer -->
+        <div>
+            <label class="block text-gray-300 text-sm font-medium mb-2">Manufacturer:</label>
+            <input type="text" name="manufacturer" value="{{ equipment.manufacturer }}" class="w-full px-3 py-2 bg-zinc-800 border border-zinc-700 rounded-md 
+                          focus:outline-none focus:ring-2 focus:ring-theme-orange focus:border-transparent
+                          text-gray-200">
+        </div>
+
+        <!-- Year Manufactured -->
+        <div>
+            <label class="block text-gray-300 text-sm font-medium mb-2">Year Manufactured:</label>
+            <input type="number" name="year_manufactured" value="{{ equipment.year_manufactured }}" class="w-full px-3 py-2 bg-zinc-800 border border-zinc-700 rounded-md 
+                          focus:outline-none focus:ring-2 focus:ring-theme-orange focus:border-transparent
+                          text-gray-200">
+        </div>
+
+        <!-- Purchase Date -->
+        <div>
+            <label class="block text-gray-300 text-sm font-medium mb-2">Purchase Date:</label>
+            <input type="date" name="purchase_date"
+                value="{{ equipment.purchase_date.strftime('%Y-%m-%d') if equipment.purchase_date }}" class="w-full px-3 py-2 bg-zinc-800 border border-zinc-700 rounded-md 
+                          focus:outline-none focus:ring-2 focus:ring-theme-orange focus:border-transparent
+                          text-gray-200">
+        </div>
+
+        <!-- MSRP -->
+        <div>
+            <label class="block text-gray-300 text-sm font-medium mb-2">MSRP:</label>
+            <input type="number" name="msrp" step="0.01" value="{{ equipment.msrp }}" class="w-full px-3 py-2 bg-zinc-800 border border-zinc-700 rounded-md 
+                          focus:outline-none focus:ring-2 focus:ring-theme-orange focus:border-transparent
+                          text-gray-200">
+        </div>
+
+        <!-- Last Maintenance Date -->
+        <div>
+            <label class="block text-gray-300 text-sm font-medium mb-2">Last Maintenance Date:</label>
+            <input type="date" name="last_maintenance_date"
+                value="{{ equipment.last_maintenance_date.strftime('%Y-%m-%d') if equipment.last_maintenance_date }}"
+                class="w-full px-3 py-2 bg-zinc-800 border border-zinc-700 rounded-md 
+                          focus:outline-none focus:ring-2 focus:ring-theme-orange focus:border-transparent
+                          text-gray-200">
+        </div>
+
+        <!-- Decommissioned -->
+        <div class="flex items-center">
+            <input type="checkbox" name="is_decommissioned" id="is_decommissioned" {% if equipment.is_decommissioned
+                %}checked{% endif %} class="rounded bg-zinc-800 border-zinc-700 text-theme-orange 
+                          focus:ring-theme-orange focus:ring-offset-zinc-900">
+            <label for="is_decommissioned" class="ml-2 text-gray-300 text-sm font-medium">
+                Decommissioned
+            </label>
+        </div>
+
+        <!-- Decommission Date -->
+        <div>
+            <label class="block text-gray-300 text-sm font-medium mb-2">Decommission Date:</label>
+            <input type="date" name="decommission_date"
+                value="{{ equipment.decommission_date.strftime('%Y-%m-%d') if equipment.decommission_date }}" class="w-full px-3 py-2 bg-zinc-800 border border-zinc-700 rounded-md 
+                          focus:outline-none focus:ring-2 focus:ring-theme-orange focus:border-transparent
+                          text-gray-200">
+        </div>
+
+        <!-- Submit Buttons -->
+        <div class="flex justify-end space-x-4">
+            <a href="{{ url_for('routes.equipment') }}"
+                class="px-6 py-2 bg-zinc-700 text-white rounded-md hover:bg-zinc-600 transition-colors">
+                Cancel
+            </a>
+            <button type="submit"
+                class="px-6 py-2 bg-theme-orange text-white rounded-md hover:bg-orange-700 transition-colors">
+                Save Changes
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}

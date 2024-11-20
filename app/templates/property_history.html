@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="bg-zinc-900 rounded-lg shadow-xl p-6 border border-zinc-800">
+    <!-- Property Details -->
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold text-theme-orange text-center">Property History</h1>
+        <div class="mt-4 bg-zinc-800 p-4 rounded-lg">
+            <h2 class="text-xl font-semibold text-theme-orange">{{ equipment.name }}</h2>
+            <p class="text-gray-400">{{ equipment.property_type }}</p>
+            <p class="text-gray-400">ID: {{ equipment.id }}</p>
+        </div>
+    </div>
+
+    <!-- History Timeline -->
+    <div class="space-y-4">
+        {% for record in equipment.history_records %}
+        <div class="bg-zinc-800 p-4 rounded-lg border-l-4 
+                    {% if record.action == 'claimed' %}border-green-500{% else %}border-red-500{% endif %}">
+            <div class="flex justify-between items-start">
+                <div>
+                    <p class="font-medium text-gray-200">
+                        {{ record.legal_name }}
+                        <span class="text-sm text-gray-400">({{ record.employee_id }})</span>
+                    </p>
+                    <p class="text-sm text-gray-400">
+                        {{ record.action | title }} on
+                        {{ record.timestamp.strftime('%Y-%m-%d %H:%M') }}
+                    </p>
+                </div>
+                <span class="px-2 py-1 text-xs rounded-full 
+                           {% if record.action == 'claimed' %}
+                           bg-green-900 text-green-200
+                           {% else %}
+                           bg-red-900 text-red-200
+                           {% endif %}">
+                    {{ record.action | title }}
+                </span>
+            </div>
+        </div>
+        {% endfor %}
+
+        {% if not equipment.history_records.count() %}
+        <div class="text-center py-8 text-gray-400">
+            No history records found for this property.
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Back Button -->
+    <div class="mt-8 text-center">
+        <a href="{{ url_for('routes.equipment') }}"
+            class="bg-zinc-700 text-white px-6 py-2 rounded-md hover:bg-zinc-600 transition-colors">
+            Back to Inventory
+        </a>
+    </div>
+</div>
+{% endblock %}
