@@ -1,4 +1,4 @@
-#Site Link:
+# Site Link:
 
 Visit the live application at: [FindMyProperty](https://findmyproperty.onrender.com)
 
@@ -81,10 +81,3 @@ A Flask-based web application for managing and tracking organizational equipment
 - Manager-only project deletion
 - Administrative controls for property deletion
 
-## Contributing
-
-Please submit bug reports, feature requests, and pull requests through the project's issue tracker.
-
-## License
-
-[Add your chosen license here]
