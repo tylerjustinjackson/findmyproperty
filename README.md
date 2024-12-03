@@ -81,3 +81,11 @@ A Flask-based web application for managing and tracking organizational equipment
 - Manager-only project deletion
 - Administrative controls for property deletion
 
+
+
+
+
+![Preview]([https://raw.githubusercontent.com/username/project/master/image-path/image.png](https://raw.githubusercontent.com/username/project/master/image-path/image.png))
+
+
+
