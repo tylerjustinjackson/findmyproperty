@@ -85,7 +85,7 @@ A Flask-based web application for managing and tracking organizational equipment
 
 
 
-![Preview]([https://ew.com/thmb/cLwaBYBbGcj0Ukk_EnBAUkcTVYM=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Adele-Munich-090124-7bf08a36f28d48b8a5027bbdd41b02d2.jpg)
+![Preview](https://ew.com/thmb/cLwaBYBbGcj0Ukk_EnBAUkcTVYM=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Adele-Munich-090124-7bf08a36f28d48b8a5027bbdd41b02d2.jpg)
 
 
 
